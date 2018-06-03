@@ -29,7 +29,7 @@ massT=[]
 files=[]
 
 # Read in data for each file
-fileName='/storage/home/awl5173/work/iAsk/astroClass/*.txt'
+fileName='0*.txt'
 for nowFile in sorted(glob.glob(fileName)):
 
     # Get the data for that file
