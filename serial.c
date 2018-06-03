@@ -69,24 +69,6 @@ int main ( )
     }
 
     //----------------------------------------//
-    // Write out an initial condition file
-    //----------------------------------------//
-    
-    if((fp=fopen("0000000.txt", "wb"))==NULL) {
-        printf("Cannot open output file.\n");
-        return 1;
-    }
-
-    for(lines = 0; lines < stars; lines++)
-    {
-        fprintf(fp, "%f %f %f %f %f %f %f \n", xLoc[lines], \
-                yLoc[lines], zLoc[lines], velX[lines], \
-                velY[lines], velZ[lines], mass[lines]);
-    }
-    fclose(fp);
-
-
-    //----------------------------------------//
     // Update the velocites and locations
     //----------------------------------------//
 
@@ -165,7 +147,7 @@ int main ( )
         //----------------------------------------//
         if(timeStepCounter%outputFreq == 0)
         {
-            sprintf(namer,"%07d.txt",timeStepCounter+1);
+            sprintf(namer,"%07d.txt",timeStepCounter);
             if((fp=fopen(namer, "wb"))==NULL) {
                 printf("Cannot open output file.\n");
                 return 1;
