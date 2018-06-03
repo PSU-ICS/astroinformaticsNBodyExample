@@ -3,7 +3,6 @@
 #include <math.h>
 #include <string.h>
 
-
 int main ( )
 {
 
@@ -12,7 +11,7 @@ int main ( )
     //----------------------------------------//
     
     // The number of stars we use 
-    int stars = 3;
+    int stars = 3; // 
 
     // The variables used for keeping track of everything
     double xLoc[stars];
@@ -38,6 +37,7 @@ int main ( )
     float gravConst = 1;
 
     // Set up what we need for I/O
+    FILE *inputFile;
     int outputFreq = 100000;
     char namer[5];
     FILE *fp;
@@ -48,46 +48,40 @@ int main ( )
     //----------------------------------------//
    
     // Simple asymmetric example
-    xLoc[0] = 0.0;
-    xLoc[1] = 1.0;
-    xLoc[2] = 2.0;
-
-    yLoc[0] = 0.0;
-    yLoc[1] = 1.0;
-    yLoc[2] = 2.0;
-
-    zLoc[0] = 0.0;
-    zLoc[1] = 0.0;
-    zLoc[2] = 0.0;
-
-    mass[0] = 1.0;
-    mass[1] = 3.0;
-    mass[2] = 1.0;
-
-    velX[0] = 1.0;
-    velX[1] = 0.0;
-    velX[2] = -1.0;
-
-    velY[0] = 0.0;
-    velY[1] = 0.0;
-    velY[2] = 0.0;
-
-    velZ[0] = 0.0;
-    velZ[1] = 0.0;
-    velZ[2] = 0.0;
+    inputFile = fopen("./symmetricThree.txt","r");
     
+    // Check to be sure the file exists
+    if (inputFile == NULL)
+    {
+        printf("Error opening the input file.\n");
+        return 1;
+    }
+
+    // Read in the data
+    for(lines = 0; lines < stars; lines++)
+    {
+        fscanf(inputFile, "%lf %lf %lf %lf %lf %lf %lf ", \
+                &xLoc[lines] , &yLoc[lines], &zLoc[lines], &velX[lines], \
+                &velY[lines], &velZ[lines], &mass[lines]);
+        //printf("%f %f %f %f %f %f %f \n", xLoc[lines], \
+                yLoc[lines], zLoc[lines], velX[lines], \
+                velY[lines], velZ[lines], mass[lines]);
+    }
+
     //----------------------------------------//
     // Write out an initial condition file
     //----------------------------------------//
     
     if((fp=fopen("0000000.txt", "wb"))==NULL) {
-        printf("Cannot open file.\n");
-        exit(1);
+        printf("Cannot open output file.\n");
+        return 1;
     }
 
     for(lines = 0; lines < stars; lines++)
     {
-        fprintf(fp, "%f %f %f %f %f %f %f \n", xLoc[lines] , yLoc[lines], zLoc[lines], velX[lines], velY[lines], velZ[lines], mass[lines]);
+        fprintf(fp, "%f %f %f %f %f %f %f \n", xLoc[lines], \
+                yLoc[lines], zLoc[lines], velX[lines], \
+                velY[lines], velZ[lines], mass[lines]);
     }
     fclose(fp);
 
@@ -173,13 +167,15 @@ int main ( )
         {
             sprintf(namer,"%07d.txt",timeStepCounter+1);
             if((fp=fopen(namer, "wb"))==NULL) {
-                printf("Cannot open file.\n");
-                exit(1);
+                printf("Cannot open output file.\n");
+                return 1;
             }
     
             for(lines = 0; lines < stars; lines++)
             {
-                fprintf(fp, "%f %f %f %f %f %f %f \n", xLoc[lines] , yLoc[lines], zLoc[lines], velX[lines], velY[lines], velZ[lines], mass[lines]);
+                fprintf(fp, "%f %f %f %f %f %f %f \n", xLoc[lines], \
+                        yLoc[lines], zLoc[lines], velX[lines], \
+                        velY[lines], velZ[lines], mass[lines]);
             }
             fclose(fp);
         }   
