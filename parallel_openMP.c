@@ -85,7 +85,8 @@ int main ( )
 
         //----------------------------------------//
         // Cycle through the different particles as the base
-        #pragma omp parallel for shared(lockPar,lockReax) private(reaxCounter, force, dist)
+        #pragma omp parallel for shared(lockPar,lockReax, velX, velY, velZ) \
+            private(reaxCounter, force, dist)
         for(parCounter=0; parCounter<stars; parCounter++)
         {
             //----------------------------------------//
@@ -123,15 +124,15 @@ int main ( )
                 // Forward Euler
 
                 omp_set_lock(&lockPar);
-                velX[parCounter]  += -1*timeStep*force/mass[parCounter]*dx/dist;
-                velY[parCounter]  += -1*timeStep*force/mass[parCounter]*dy/dist;
-                velZ[parCounter]  += -1*timeStep*force/mass[parCounter]*dz/dist;
+                velX[parCounter]  += -1*timeStep*force/mass[parCounter]*(xLoc[parCounter]-xLoc[reaxCounter])/dist;
+                velY[parCounter]  += -1*timeStep*force/mass[parCounter]*(yLoc[parCounter]-yLoc[reaxCounter])/dist;
+                velZ[parCounter]  += -1*timeStep*force/mass[parCounter]*(zLoc[parCounter]-zLoc[reaxCounter])/dist;
                 omp_unset_lock(&lockPar);                  
  
                 omp_set_lock(&lockReax);
-                velX[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dx/dist;
-                velY[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dy/dist;
-                velZ[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dz/dist;
+                velX[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*(xLoc[parCounter]-xLoc[reaxCounter])/dist;
+                velY[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*(yLoc[parCounter]-yLoc[reaxCounter])/dist;
+                velZ[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*(xLoc[parCounter]-zLoc[reaxCounter])/dist;
                 omp_unset_lock(&lockReax);
 
                 //----------------------------------------//
