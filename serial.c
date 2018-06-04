@@ -11,9 +11,8 @@ int main ( )
     //----------------------------------------//
     
     // The number of stars we use 
-    //int stars = 3; // For the simple three body problem
-    //int stars = 10002; // Max in file
-    int stars = 100; // 
+    //int stars = 3; // For the simple three body problem  in symmetricThree.txt
+    int stars = 100; //  Up to 10002 in system.txt
 
     // The variables used for keeping track of everything
     double xLoc[stars];
@@ -40,7 +39,7 @@ int main ( )
 
     // Set up what we need for I/O
     FILE *inputFile;
-    int outputFreq = 10000;
+    int outputFreq = 1000;
     char namer[5];
     FILE *fp;
     int lines;
