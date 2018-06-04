@@ -39,7 +39,7 @@ int main ( )
 
     // Set up what we need for I/O
     FILE *inputFile;
-    int outputFreq = 1000;
+    int outputFreq = 10000;
     char namer[5];
     FILE *fp;
     int lines;
