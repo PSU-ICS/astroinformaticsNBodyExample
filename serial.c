@@ -11,7 +11,8 @@ int main ( )
     //----------------------------------------//
     
     // The number of stars we use 
-    int stars = 3; // 
+    //int stars = 3; 
+    int stars = 2; // 
 
     // The variables used for keeping track of everything
     double xLoc[stars];
@@ -24,7 +25,7 @@ int main ( )
 
     // Set up the time loop
     int timeStepCounter;
-    double timeStep = 0.001;
+    double timeStep = 0.00001;
     int maxTimeSteps = 1000000;
     
     // Set up the loops for cycling all the objects through each other
@@ -38,7 +39,7 @@ int main ( )
 
     // Set up what we need for I/O
     FILE *inputFile;
-    int outputFreq = 100000;
+    int outputFreq = 10000;
     char namer[5];
     FILE *fp;
     int lines;
@@ -48,7 +49,8 @@ int main ( )
     //----------------------------------------//
    
     // Simple asymmetric example
-    inputFile = fopen("./symmetricThree.txt","r");
+    //inputFile = fopen("./symmetricThree.txt","r");
+    inputFile = fopen("./twoOnly.txt","r");
     
     // Check to be sure the file exists
     if (inputFile == NULL)
@@ -112,14 +114,14 @@ int main ( )
                 
                 //----------------------------------------//
                 // Forward Euler
-                velX[parCounter]  += -1*timeStep*force*mass[parCounter]*dx/dist;
-                velX[reaxCounter] +=  1*timeStep*force*mass[reaxCounter]*dx/dist;
+                velX[parCounter]  += -1*timeStep*force/mass[parCounter]*dx/dist;
+                velX[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dx/dist;
                 
-                velY[parCounter]  += -1*timeStep*force*mass[parCounter]*dy/dist;
-                velY[reaxCounter] +=  1*timeStep*force*mass[reaxCounter]*dy/dist;
+                velY[parCounter]  += -1*timeStep*force/mass[parCounter]*dy/dist;
+                velY[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dy/dist;
                 
-                velZ[parCounter]  += -1*timeStep*force*mass[parCounter]*dz/dist;
-                velZ[reaxCounter] +=  1*timeStep*force*mass[reaxCounter]*dz/dist;
+                velZ[parCounter]  += -1*timeStep*force/mass[parCounter]*dz/dist;
+                velZ[reaxCounter] +=  1*timeStep*force/mass[reaxCounter]*dz/dist;
 
 
                 //----------------------------------------//
