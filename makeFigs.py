@@ -89,8 +89,10 @@ for fcount in range(len(files)):
     plt.scatter(xLocT[fcount],yLocT[fcount],s=5+slope*(massT[fcount]-massMin) )
 
     # Format the plot
-    plt.xlim([xlMin-0.1*(xlMax-xlMin),xlMax+0.1*(xlMax-xlMin)])
-    plt.ylim([ylMin-0.1*(ylMax-ylMin),ylMax+0.1*(ylMax-ylMin)])
+    #plt.xlim([xlMin-0.1*(xlMax-xlMin),xlMax+0.1*(xlMax-xlMin)])
+    #plt.ylim([ylMin-0.1*(ylMax-ylMin),ylMax+0.1*(ylMax-ylMin)])
+    plt.xlim([-1.5,1.5])
+    plt.ylim([-1.5,1.5])
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.tight_layout()

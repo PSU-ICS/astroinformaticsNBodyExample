@@ -11,8 +11,9 @@ int main ( )
     //----------------------------------------//
     
     // The number of stars we use 
-    //int stars = 3; 
-    int stars = 2; // 
+    //int stars = 3; // For the simple three body problem
+    //int stars = 10002; // Max in file
+    int stars = 100; // 
 
     // The variables used for keeping track of everything
     double xLoc[stars];
@@ -26,7 +27,7 @@ int main ( )
     // Set up the time loop
     int timeStepCounter;
     double timeStep = 0.00001;
-    int maxTimeSteps = 1000000;
+    int maxTimeSteps = 100000;
     
     // Set up the loops for cycling all the objects through each other
     int parCounter;
@@ -50,7 +51,7 @@ int main ( )
    
     // Simple asymmetric example
     //inputFile = fopen("./symmetricThree.txt","r");
-    inputFile = fopen("./twoOnly.txt","r");
+    inputFile = fopen("./system.txt","r");
     
     // Check to be sure the file exists
     if (inputFile == NULL)
